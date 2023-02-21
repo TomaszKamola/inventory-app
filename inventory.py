@@ -24,7 +24,11 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/home")
 def hello():
-    return render_template('home.html', table_data=table_data, table_len=len(table_data))
+    return render_template(
+        'home.html', 
+        table_data=table_data, 
+        table_len=len(table_data)
+    )
 
 @app.route("/about")
 def about():
