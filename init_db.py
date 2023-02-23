@@ -1,5 +1,5 @@
-from inventory import app, db
-from models import Items, Types, Users, Roles
+from inventory_app.app import app, db
+from inventory_app.models import Items, Types, Users, Roles
 from datetime import datetime
 
 
@@ -47,18 +47,18 @@ with app.app_context():
 
     role1 = Roles(name='Admin')
 
-    item1.types.append(type1)
-    item2.types.append(type2)
-    item3.types.append(type3)
-    item4.types.append(type4)
+    item1.item_type.append(type1)
+    item2.item_type.append(type2)
+    item3.item_type.append(type3)
+    item4.item_type.append(type4)
 
-    item1.users.append(user1)
-    item2.users.append(user1)
-    item3.users.append(user2)
-    item4.users.append(user1)
+    item1.user.append(user1)
+    item2.user.append(user1)
+    item3.user.append(user2)
+    item4.user.append(user1)
 
-    user1.roles.append(role1)
-    user2.roles.append(role1)
+    user1.role.append(role1)
+    user2.role.append(role1)
 
     db.session.add_all([item1, item2, item3, item4])
     db.session.add_all([type1, type2, type3, type4])
