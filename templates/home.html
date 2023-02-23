@@ -1,17 +1,4 @@
 {% extends "layout.html" %}
 {% block content %}
-    <table>
-        <tr>
-            {% for key in table_data.keys() %}
-                <th>{{ key }}</th>
-            {% endfor %}
-        </tr>
-        {% for i in range(table_len) %}
-        <tr>
-            {% for key in table_data.keys() %}
-                <td>{{ table_data[key][i] }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+    
 {% endblock content %}

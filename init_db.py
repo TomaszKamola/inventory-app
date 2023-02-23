@@ -1,5 +1,5 @@
 from inventory import app, db
-from models import Item, Type, User, Role
+from models import Items, Types, Users, Roles
 from datetime import datetime
 
 
@@ -9,43 +9,43 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    item1 = Item(
+    item1 = Items(
         name='Dell Optiplex XYZ123', 
         serial='S/N 224466135', 
         inventory_num='XY100111',
         addition_date=date
     )
 
-    item2 = Item(
+    item2 = Items(
         name='Dell SH1T1488', 
         serial='S/N 21371488', 
         inventory_num='XY100222',
         addition_date=date
     )
 
-    item3 = Item(
+    item3 = Items(
         name='Mysz Logitech M2137', 
         serial='S/N 11111111', 
         inventory_num='XY100333',
         addition_date=date
     )
 
-    item4 = Item(
+    item4 = Items(
         name='Klawiatura Logitech K2137', 
         serial='S/N 101010101010', 
         inventory_num='XY100444',
         addition_date=date
     )
 
-    type1 = Type(name='Komputer')
-    type2 = Type(name='Monitor')
-    type3 = Type(name='Mysz')
-    type4 = Type(name='Klawiatura')
+    type1 = Types(name='Komputer')
+    type2 = Types(name='Monitor')
+    type3 = Types(name='Mysz')
+    type4 = Types(name='Klawiatura')
 
-    user1 = User(name='Janusz Maj')
-    user2 = User(name='Andrzej Bęc')
+    user1 = Users(name='Janusz Maj')
+    user2 = Users(name='Andrzej Bęc')
 
-    role1 = Role(name='Admin')
+    role1 = Roles(name='Admin')
 
     item1.types.append(type1)
     item2.types.append(type2)
