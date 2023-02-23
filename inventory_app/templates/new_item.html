@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    {%- for category, message in get_flashed_messages(with_categories = true) %}
+        <div class = "alert alert-danger">
+            {{ message }}
+        </div>
+    {%- endfor %}
+    <h3>Add new entry to database</h3>
+    <hr>
+    <form action="{{ request.path }}" method="post">
+        <div class="input-group">
+            <span class="input-group-text">Item name</span>
+            <input type="text" name="name" placeholder="Name, model etc.">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Item serial number</span>
+            <input type="text" name="serial" placeholder="Unique number of item">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Inventory number</span>
+            <input type="text" name="inventory_num" placeholder="Asset number">
+        </div>
+        <input class="btn btn-success" type="submit" value="Submit">
+    </form>
+{% endblock content %}
