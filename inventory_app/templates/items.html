@@ -60,7 +60,7 @@
                                 <p>{{ item.inventory_num }}</p>
                             </td>
                             <td>
-                                <p>{{ item.addition_date }}</p>
+                                <p>{{ item.addition_date.strftime("%d/%m/%Y %H:%M:%S") }}</p>
                             </td>
                             <td>
                                 <button class="btn btn-secondary">
