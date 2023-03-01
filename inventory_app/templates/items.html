@@ -13,12 +13,13 @@
         </a>
     </button>
 
-    <!-- Button trigger modal -->
+    <!-- Button trigger modal for deleting items confirm -->
     <button type="button" class="btn btn-dark items-btns" data-bs-toggle="modal" data-bs-target="#delete-modal">
         Delete checked items
     </button>
 
     <form action="{{ url_for('delete') }}" method="post">
+        <!-- Modal for deleting items confirm -->
         <div id="delete-modal" class="modal fade" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -28,8 +29,7 @@
                     </div>  
                     <div class="modal-body">
                         <p>Are you sure you want to delete selected items?</p>
-                    </div>                     
-                    
+                    </div>          
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <input type="submit" class="btn btn-danger" value="Delete">
@@ -73,9 +73,35 @@
                                 <p>{{ item.addition_date.strftime("%d/%m/%Y %H:%M:%S") }}</p>
                             </td>
                             <td>
-                                <button class="btn btn-secondary">
+                                <!-- Button trigger modal for item edition -->
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-modal-{{ item.id }}">
                                     Edit
                                 </button>
+
+                                <!-- Modal for item edition -->
+                                <form action="{{ url_for('modify') }}">
+                                    <div id="edit-modal-{{ item.id }}" class="modal fade" tabindex="-1" aria-labelledby="edit-modal-label" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1>Edit item</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>  
+                                                <div class="modal-body">
+                                                    <input type="text" id="fname" name="edit_type" value="{{ item.item_type|replace('[', '')|replace(']', '') }}">
+                                                    <input type="text" id="fname" name="edit_name" value="{{ item.name }}">
+                                                    <input type="text" id="fname" name="edit_serial" value="{{ item.serial }}">
+                                                    <input type="text" id="fname" name="edit_inv_num" value="{{ item.inventory_num }}">
+                                                </div>                     
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <input type="submit" class="btn btn-success" value="Save">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
                             </td>
                         </tr>
                     {% endfor %}

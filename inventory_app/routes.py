@@ -38,16 +38,16 @@ def new_item():
                 addition_date=date,
                 item_type=item_type
             )
-            
+
             db.session.add(item)
             db.session.commit()
             flash('Record added succefully.', 'success')
             
-            return redirect(url_for('items'))
+        return redirect(url_for('items'))
         
     return render_template('new_item.html', types=types)
 
-@app.route("/delete", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def delete():
     if request.method == 'POST':
         delete_checks = request.form.getlist('delete_check')
@@ -62,6 +62,10 @@ def delete():
             flash('You must check at least one item in table below.', 'warning')
     
     return redirect(url_for('items'))
+
+@app.route("/", methods=['GET', 'POST'])
+def modify():
+    pass
 
 @app.route("/about")
 def about():
