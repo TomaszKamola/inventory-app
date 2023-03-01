@@ -47,12 +47,16 @@ def new_item():
 @app.route("/delete", methods=['GET', 'POST'])
 def delete():
     if request.method == 'POST':
-        for checkid in request.form.getlist('delete_check'):
-            item = Items.query.get(checkid)
+        delete_checks = request.form.getlist('delete_check')
+        if delete_checks:
+            for checkid in delete_checks:
+                item = Items.query.get(checkid)
 
-            db.session.delete(item)
-            db.session.commit()
-        flash('Items deleted succefully.', 'success')
+                db.session.delete(item)
+                db.session.commit()
+            flash('Items deleted succefully.', 'success')
+        else:
+            flash('You must check at least one item in table below.', 'warning')
     
     return redirect(url_for('items'))
 
