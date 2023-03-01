@@ -5,8 +5,9 @@ from flask import (
     redirect, 
     url_for
 )
+from sqlalchemy import desc
 from inventory_app.app import app, db
-from inventory_app.models import Items
+from inventory_app.models import Items, Types
 from datetime import datetime
 
 
@@ -15,13 +16,12 @@ from datetime import datetime
 def items():
     items = Items.query.order_by(Items.id).all()
 
-    return render_template(
-        'items.html',
-        items=items
-    )
+    return render_template('items.html', items=items)
 
 @app.route("/new_item", methods=['GET', 'POST'])
 def new_item():
+    types = Types.query.order_by(Types.name).all()
+
     if request.method == 'POST':
         if not request.form['name'] \
         or not request.form['serial'] \
@@ -29,20 +29,23 @@ def new_item():
             flash("If you wan't add item, you have to enter each field.", 'warning')
         else:
             date = datetime.now()
+            item_type = Types.query.filter_by(id=request.form['type']).all()
+
             item = Items(
                 name=request.form['name'], 
                 serial=request.form['serial'], 
                 inventory_num=request.form['inventory_num'],
-                addition_date=date
+                addition_date=date,
+                item_type=item_type
             )
-
+            
             db.session.add(item)
             db.session.commit()
             flash('Record added succefully.', 'success')
             
             return redirect(url_for('items'))
         
-    return render_template('new_item.html')
+    return render_template('new_item.html', types=types)
 
 @app.route("/delete", methods=['GET', 'POST'])
 def delete():

@@ -37,6 +37,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th></th>
+                        <th>Type</th>
                         <th>Name</th>
                         <th>Serial Number</th>
                         <th>Inventory Number</th>
@@ -49,6 +50,9 @@
                         <tr>
                             <td>
                                 <input type="checkbox" name="delete_check" value="{{ item.id }}">
+                            </td>
+                            <td>
+                                <p>{{ item.item_type|replace('[', '')|replace(']', '') }}</p>
                             </td>
                             <td>
                                 <p>{{ item.name }}</p>
