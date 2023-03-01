@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 @app.route("/")
-@app.route("/items")
+@app.route("/items", methods=['GET', 'POST'])
 def items():
     items = Items.query.order_by(Items.id).all()
     return render_template(

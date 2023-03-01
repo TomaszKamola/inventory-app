@@ -28,11 +28,6 @@ class Items(db.Model):
     item_type = db.relationship('Types', secondary='items_types')
     user = db.relationship('Users', secondary='created_by')
 
-    # def __init__(self, name, serial, inventory_num):
-    #     self.item_name = name
-    #     self.item_serial = serial
-    #     self.item_inventory_num = inventory_num
-
 
 class Types(db.Model):
     id = db.Column(db.Integer, primary_key=True)
