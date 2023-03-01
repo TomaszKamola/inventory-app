@@ -35,58 +35,6 @@ tr:nth-child(even) {
     margin-bottom: 0.5rem;
 }
 
-.cancelbtn, .deletebtn {
-    float: left;
-    width: 50%;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(71, 78, 93, 0.5);
-    padding-top: 50px;
-}
-
-.modal-container {
-    padding: 16px;
-    text-align: center;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; 
-    border: 1px solid #888;
-    width: 30%;
-    opacity: 1;
-}
-
-.close {
-    position: absolute;
-    right: 35px;
-    top: 15px;
-    font-size: 40px;
-    font-weight: bold;
-    color: #f1f1f1;
-}
-  
-.close:hover,
-.close:focus {
-    color: #f44336;
-    cursor: pointer;
-}
-
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
 #new-item-submit {
     margin-top: 0.5rem;
 }

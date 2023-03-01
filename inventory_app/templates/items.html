@@ -12,21 +12,27 @@
             Add new item
         </a>
     </button>
-    <button class="btn btn-dark items-btns" onclick="document.getElementById('delete-modal').style.display='block'">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-dark items-btns" data-bs-toggle="modal" data-bs-target="#delete-modal">
         Delete checked items
     </button>
 
     <form action="{{ url_for('delete') }}" method="post">
-        <div id="delete-modal" class="modal">
-            <span onclick="document.getElementById('delete-modal').style.display='none'" class="close" title="Close Modal">×</span>
-            <div class="modal-content" action="">
-                <div class="container modal-container">
-                    <h1>Delete?</h1>
-                    <p>Are you sure you want to delete selected items?</p>
-                
-                    <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('delete-modal').style.display='none'" class="btn btn-secondary">Cancel</button>
-                        <input type="submit" onclick="document.getElementById('delete-modal').style.display='none'" class="btn btn-danger" value="Delete">
+        <div id="delete-modal" class="modal fade" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Delete?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>  
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete selected items?</p>
+                    </div>                     
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-danger" value="Delete">
                     </div>
                 </div>
             </div>
@@ -77,14 +83,4 @@
             </table>
         </div>
     </form>
-
-    <script>
-        var modal = document.getElementById('delete-modal');
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 {% endblock content %}
