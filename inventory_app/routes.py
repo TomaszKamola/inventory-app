@@ -38,7 +38,9 @@ def new_item():
             db.session.add(item)
             db.session.commit()
             flash('Record added succefully.', 'success')
+            
             return redirect(url_for('items'))
+        
     return render_template('new_item.html')
 
 @app.route("/about")
