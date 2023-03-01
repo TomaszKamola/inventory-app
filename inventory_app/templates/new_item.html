@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-    {%- for category, message in get_flashed_messages(with_categories = true) %}
-        <div class = "alert alert-danger">
-            {{ message }}
-        </div>
-    {%- endfor %}
     <h3>Add new entry to database</h3>
     <hr>
+    {% for category, message in get_flashed_messages(with_categories = true) %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endfor %}
     <form action="{{ request.path }}" method="post">
         <div class="input-group">
             <span class="input-group-text">Item name</span>
@@ -14,11 +14,11 @@
         </div>
         <div class="input-group">
             <span class="input-group-text">Item serial number</span>
-            <input type="text" name="serial" placeholder="Unique number of item">
+            <input type="text" name="serial" placeholder="Number of item series">
         </div>
         <div class="input-group">
             <span class="input-group-text">Inventory number</span>
-            <input type="text" name="inventory_num" placeholder="Asset number">
+            <input type="text" name="inventory_num" placeholder="Unique asset number">
         </div>
         <input id="new-item-submit" class="btn btn-dark" type="submit" value="Submit">
     </form>

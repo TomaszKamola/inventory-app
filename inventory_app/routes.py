@@ -14,6 +14,7 @@ from datetime import datetime
 @app.route("/items", methods=['GET', 'POST'])
 def items():
     items = Items.query.order_by(Items.id).all()
+
     return render_template(
         'items.html',
         items=items
@@ -42,6 +43,18 @@ def new_item():
             return redirect(url_for('items'))
         
     return render_template('new_item.html')
+
+@app.route("/delete", methods=['GET', 'POST'])
+def delete():
+    if request.method == 'POST':
+        for checkid in request.form.getlist('delete_check'):
+            item = Items.query.get(checkid)
+
+            db.session.delete(item)
+            db.session.commit()
+        flash('Items deleted succefully.', 'success')
+    
+    return redirect(url_for('items'))
 
 @app.route("/about")
 def about():

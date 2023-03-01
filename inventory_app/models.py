@@ -28,6 +28,9 @@ class Items(db.Model):
     item_type = db.relationship('Types', secondary='items_types')
     user = db.relationship('Users', secondary='created_by')
 
+    def __repr__(self):
+        return f"Items({self.name}, {self.serial}, {self.inventory_num})"
+
 
 class Types(db.Model):
     id = db.Column(db.Integer, primary_key=True)

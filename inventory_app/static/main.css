@@ -3,6 +3,10 @@ main {
     height: 100%;
 }
 
+h3 {
+    margin-top: 1.125rem;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
