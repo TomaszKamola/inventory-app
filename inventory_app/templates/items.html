@@ -55,7 +55,7 @@
                     {% for item in items %}
                         <tr>
                             <td>
-                                <input type="checkbox" name="delete_check" value="{{ item.id }}">
+                                <input type="checkbox" name="check" value="{{ item.id }}">
                             </td>
                             <td>
                                 <p>{{ item.item_type|replace('[', '')|replace(']', '') }}</p>
@@ -84,7 +84,7 @@
             </table>
         </div>
     </form>
-    
+
     {% for item in items %}
         <!-- Modal for item edition -->
         <form action="{{ url_for('modify') }}" method="post">
@@ -96,9 +96,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>  
                         <div class="modal-body">
+                            <input type="hidden" name="edit_id" value="{{ item.id }}">
                             <div class="input-group">
                                 <span class="input-group-text">Type</span>
-                                <select class="form-select" name="type">
+                                <select class="form-select" name="edit_type">
                                     <option value="{{ item.item_type|replace('[', '')|replace(']', '') }}">{{ item.item_type|replace('[', '')|replace(']', '') }}</option>
                                     {% for type in types %}
                                         {% if type.name != item.item_type|replace('[', '')|replace(']', '') %}

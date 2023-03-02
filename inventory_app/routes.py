@@ -50,9 +50,9 @@ def new_item():
 @app.route("/delete", methods=['GET', 'POST'])
 def delete():
     if request.method == 'POST' and request.form['submit_button'] == 'Delete':
-        delete_checks = request.form.getlist('delete_check')
-        if delete_checks:
-            for checkid in delete_checks:
+        checks = request.form.getlist('check')
+        if checks:
+            for checkid in checks:
                 item = Items.query.get(checkid)
 
                 db.session.delete(item)
@@ -66,12 +66,19 @@ def delete():
 @app.route("/modify", methods=['GET', 'POST'])
 def modify():
     if request.method == 'POST' and request.form['submit_button'] == 'Save':
-        print(request.form['edit_serial'])
         if not request.form['edit_name'] \
         or not request.form['edit_serial'] \
         or not request.form['edit_inv_num']:
             flash("If you wan't edit item, each field must be filled.", 'warning')
         else:
+            item = Items.query.filter_by(id=request.form['edit_id']).all()
+
+            item.item_type = request.form['edit_type']
+            item.name = request.form['edit_name']
+            item.serial = request.form['edit_serial']
+            item.inventory_num = request.form['edit_inv_num']
+
+            # db.session.commit()
             flash('Item edited succefully.', 'success')
 
     return redirect(url_for('items'))
