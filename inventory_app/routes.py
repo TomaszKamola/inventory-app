@@ -10,18 +10,18 @@ from inventory_app.models import Items, Types
 from datetime import datetime
 
 
+with app.app_context():
+    types = Types.query.order_by(Types.name).all()
+
 @app.route("/")
 @app.route("/items", methods=['GET', 'POST'])
 def items():
     items = Items.query.order_by(Items.id).all()
-    types = Types.query.order_by(Types.name).all()
 
     return render_template('items.html', items=items, types=types)
 
 @app.route("/new_item", methods=['GET', 'POST'])
 def new_item():
-    types = Types.query.order_by(Types.name).all()
-
     if request.method == 'POST':
         if not request.form['name'] \
         or not request.form['serial'] \
@@ -41,15 +41,15 @@ def new_item():
 
             db.session.add(item)
             db.session.commit()
-            flash('Record added succefully.', 'success')
+            flash('Item added succefully.', 'success')
             
         return redirect(url_for('items'))
         
     return render_template('new_item.html', types=types)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/delete", methods=['GET', 'POST'])
 def delete():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['submit_button'] == 'Delete':
         delete_checks = request.form.getlist('delete_check')
         if delete_checks:
             for checkid in delete_checks:
@@ -63,10 +63,20 @@ def delete():
     
     return redirect(url_for('items'))
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/modify", methods=['GET', 'POST'])
 def modify():
-    pass
+    if request.method == 'POST' and request.form['submit_button'] == 'Save':
+        print(request.form['edit_serial'])
+        if not request.form['edit_name'] \
+        or not request.form['edit_serial'] \
+        or not request.form['edit_inv_num']:
+            flash("If you wan't edit item, each field must be filled.", 'warning')
+        else:
+            flash('Item edited succefully.', 'success')
+
+    return redirect(url_for('items'))
 
 @app.route("/about")
 def about():
     return render_template('about.html')
+
