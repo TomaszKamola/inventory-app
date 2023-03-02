@@ -88,10 +88,30 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>  
                                                 <div class="modal-body">
-                                                    <input type="text" id="fname" name="edit_type" value="{{ item.item_type|replace('[', '')|replace(']', '') }}">
-                                                    <input type="text" id="fname" name="edit_name" value="{{ item.name }}">
-                                                    <input type="text" id="fname" name="edit_serial" value="{{ item.serial }}">
-                                                    <input type="text" id="fname" name="edit_inv_num" value="{{ item.inventory_num }}">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Type</span>
+                                                        <!-- <input type="select" name="edit_type" value="{{ item.item_type }}"> -->
+                                                        <select class="form-select" name="type">
+                                                            <option value="{{ item.item_type|replace('[', '')|replace(']', '') }}">{{ item.item_type|replace('[', '')|replace(']', '') }}</option>
+                                                            {% for type in types %}
+                                                                {% if type.name != item.item_type|replace('[', '')|replace(']', '') %}
+                                                                    <option value="{{ type.id }}">{{ type.name }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Item name</span>
+                                                        <input type="text" name="edit_name" value="{{ item.name }}">
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Item serial number</span>
+                                                        <input type="text" name="edit_serial" value="{{ item.serial }}">
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Inventory number</span>
+                                                        <input type="text" name="edit_inv_num" value="{{ item.inventory_num }}">
+                                                    </div>
                                                 </div>                     
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

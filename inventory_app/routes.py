@@ -5,7 +5,6 @@ from flask import (
     redirect, 
     url_for
 )
-from sqlalchemy import desc
 from inventory_app.app import app, db
 from inventory_app.models import Items, Types
 from datetime import datetime
@@ -15,8 +14,9 @@ from datetime import datetime
 @app.route("/items", methods=['GET', 'POST'])
 def items():
     items = Items.query.order_by(Items.id).all()
+    types = Types.query.order_by(Types.name).all()
 
-    return render_template('items.html', items=items)
+    return render_template('items.html', items=items, types=types)
 
 @app.route("/new_item", methods=['GET', 'POST'])
 def new_item():
