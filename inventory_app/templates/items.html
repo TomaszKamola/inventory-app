@@ -7,16 +7,58 @@
             {{ message }}
         </div>
     {% endfor %}
-    <button type="button" class="btn btn-dark items-btns">
-        <a href="/new_item" class="nav-link text-white">
-            Add new item
-        </a>
-    </button>
+    
+    <div>
+        <!-- Button trigger modal for adding items confirm -->
+        <button type="button" class="btn btn-dark items-btns" data-bs-toggle="modal" data-bs-target="#add-modal">
+                Add new item
+        </button>
 
-    <!-- Button trigger modal for deleting items confirm -->
-    <button type="button" class="btn btn-dark items-btns" data-bs-toggle="modal" data-bs-target="#delete-modal">
-        Delete checked items
-    </button>
+        <!-- Button trigger modal for deleting items confirm -->
+        <button type="button" class="btn btn-dark items-btns" data-bs-toggle="modal" data-bs-target="#delete-modal">
+            Delete checked items
+        </button>
+    </div>
+
+    <!-- Modal for item adding -->
+    <form action="{{ url_for('new_item') }}" method="post">
+        <div id="add-modal" class="modal fade" tabindex="-1" aria-labelledby="add-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Add new entry</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>  
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-text">Type</span>
+                            <select class="form-select" name="add_type">
+                                {% for type in types %}
+                                    <option value="{{ type.id }}">{{ type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">Item name</span>
+                            <input type="text" name="add_name" placeholder="Name, model etc.">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">Item serial number</span>
+                            <input type="text" name="add_serial" placeholder="Number of item series">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">Inventory number</span>
+                            <input type="text" name="add_inventory_num" placeholder="Unique asset number">
+                        </div>
+                    </div>                     
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-success" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <form action="{{ url_for('delete') }}" method="post">
         <!-- Modal for deleting items confirm -->

@@ -15,26 +15,25 @@ from datetime import datetime
 @app.route("/items", methods=['GET', 'POST'])
 def items():
     items = Items.query.order_by(Items.id).all()
+    types = Types.query.order_by(Types.name).all()
 
-    return render_template('items.html', items=items)
+    return render_template('items.html', items=items, types=types)
 
 @app.route("/new_item", methods=['GET', 'POST'])
 def new_item():
-    types = Types.query.order_by(Types.name).all()
-
     if request.method == 'POST':
-        if not request.form['name'] \
-        or not request.form['serial'] \
-        or not request.form['inventory_num']:
-            flash("If you wan't add item, you have to enter each field.", 'warning')
+        if not request.form['add_name'] \
+        or not request.form['add_serial'] \
+        or not request.form['add_inventory_num']:
+            flash("If you want add item, you have to enter each field.", 'warning')
         else:
             date = datetime.now()
-            item_type = Types.query.filter_by(id=request.form['type']).all()
+            item_type = Types.query.filter_by(id=request.form['add_type']).all()
 
             item = Items(
-                name=request.form['name'], 
-                serial=request.form['serial'], 
-                inventory_num=request.form['inventory_num'],
+                name=request.form['add_name'], 
+                serial=request.form['add_serial'], 
+                inventory_num=request.form['add_inventory_num'],
                 addition_date=date,
                 item_type=item_type
             )
@@ -43,11 +42,9 @@ def new_item():
             db.session.commit()
             flash('Record added succefully.', 'success')
             
-        return redirect(url_for('items'))
-        
-    return render_template('new_item.html', types=types)
+    return redirect(url_for('items'))
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/delete", methods=['GET', 'POST'])
 def delete():
     if request.method == 'POST':
         delete_checks = request.form.getlist('delete_check')
